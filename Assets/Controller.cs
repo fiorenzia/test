@@ -5,7 +5,7 @@ public class Controller : MonoBehaviour
 {
 
 	public bool isMine;
-	public 
+	public float dx,dy;
 
 	// Update is called once per frame
 	void Update () 
@@ -18,9 +18,10 @@ public class Controller : MonoBehaviour
 
 		if (isMine) 
 		{
-			float dx = Input.GetAxis("Horizontal");
-			float dy = Input.GetAxis ("Vertical");
-			transform.Translate(dx*0.5f,dy*0.5f,0.0f);
+			dx = Input.GetAxis("Horizontal");
+			dy = Input.GetAxis ("Vertical");
+			transform.Rotate (Vector3.forward,-dx*2);
+			transform.Translate(0.0f,dy*0.1f,0.0f);
 			GetComponent<NetworkView>().RPC ("MovePlayer",RPCMode.Others,transform.position);
 		}
 //		if(Input.GetKeyDown("SPACE")
@@ -32,6 +33,7 @@ public class Controller : MonoBehaviour
 	public void MovePlayer(Vector3 position)
 	{
 		transform.position = position;
+		transform.Rotate (Vector3.forward,-dx*2);
 	}
 
 }
