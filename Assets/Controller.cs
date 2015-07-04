@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Controller : MonoBehaviour 
@@ -7,10 +7,10 @@ public class Controller : MonoBehaviour
 	public bool isMine;
 	public float dx,dy;
 
+
 	// Update is called once per frame
 	void Update () 
 	{
-	
 		if (!NetworkViewManager.connected) 
 		{
 			return;
@@ -28,6 +28,13 @@ public class Controller : MonoBehaviour
 //		{
 //			Network.Instantiate()
 		}
+
+	void OnCollisuonEnter(Collision col)
+	{
+		if (col.gameObject.CompareTag ("Bullet")) {
+			Destroy (gameObject);
+		}
+	}
 
 	[RPC]
 	public void MovePlayer(Vector3 position)
